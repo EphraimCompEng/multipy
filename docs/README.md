@@ -3,9 +3,9 @@ A project to aid research in the saturation of multipliers.
 
 # Why?
 
-Operations which do not need to exceed a ceiling, such as RGB and DSP calculations, saturate to a specific range of values.  
+This project was initially focused on how [saturation](https://en.wikipedia.org/wiki/Saturation_arithmetic) allows for the optimisation of a combinational [multiplier](https://en.wikipedia.org/wiki/Binary_multiplier). Once saturation is introduced, calculating the ceiling, or overflow, becomes extremely fast for one range of inputs. Another range always produces values within the extremes. The remaining range of inputs may or may not fall outside the extremes. Finding ways to predict if a given input results in an overflow, as early as possible, will result in faster calculations.
 
-This project focuses on how [saturation](https://en.wikipedia.org/wiki/Saturation_arithmetic) effects the optimisation of a combinational [multiplier](https://en.wikipedia.org/wiki/Binary_multiplier). The goal is to find solutions for the saturation limit at the earliest point(s) in a multiplication stage, efficient partial product generation and reduction.
+Generating and analysing designs by hand is labour intensive even for small datasets. For entire [truth tables](https://en.wikipedia.org/wiki/Truth_table), this becomes close to impossible after 8-bits.
 
 ## Combinational Multipliers
 
