@@ -1,4 +1,16 @@
-#!/usr/bin/env python
+#####################################
+# Generates Multiplier Truth Tables #
+#####################################
+
+
+
+
+
+
+
+
+
+
 from functools import cache
 from pprint import pprint
 from typing import Any
@@ -9,8 +21,8 @@ from numpy._typing import NDArray
 
 
 
-# When using json, it  not lot like to interact with numpy
-# This was the solution I saw online, no source sadly, this was years ago.
+# When using json, it  not lot like to interact with numpy This was the
+# solution I saw online, no source sadly, this was years ago.
 # Unlikely to change this as MultiPY will move to .parquet files.
 class NpEncoder(json.JSONEncoder):
     def default(self, obj: Any) -> Any: # No idea how to type this, just using Any
@@ -66,13 +78,20 @@ def carry_save_layers():
 def add_layers():
     pass
 
-def operand_test_list(max_value: int, min_value: int =1, min_intput_value: int =1,
+
+# All permutations of operand input for a given input range.
+# For a range of mn_v = 1, mx_v = 3, mn_input_v = 1, all permutations of operand input are:
+# [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
+#
+def operand_test_list(min_value: int =1, max_value: int =255, min_intput_value: int =1,
     clamp: bool =True) -> NDArray[Any]:
     """
-    Generate list of tuples representing inputs (A, B), where:
-        min_input_value < A, B (< 255 if clamp == True)
-    for all possible variations which will output :
-        < C <
+    All permutations of operand input for a given input range.
+    For a range of mn_v = 1, mx_v = 3, mn_input_v = 1, all permutations are:
+
+    >>> [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
+
+    itertools likely has a much better way of doing this.
     """
     # if int(max_value) != 256:
     #     raise ValueError

@@ -30,7 +30,7 @@ Can be represented like so:
 0b [10000100] -> 132
 ```
 
-This is simplified and only 4-bits, but you get the idea. First partial products "fan out" and then reduced in subsequent layers.
+This is only 4-bits, but you get the idea. First partial products "fan out" and then reduced in subsequent layers.
 
 Note that for any multiplication the output can be upto **2x** the input width.
 
@@ -43,24 +43,32 @@ Typically, saturation restricts the output bit width to the input bit width: x-b
 As demonstrated in the example above:
 ```
 11 * 12 -> 0b1011 * 0b1100 -> 0b10000100 -[Clamp=4b]-> 0b1111
+
+    Cout|1011
+   -----+-----   
+   [____|0000] 0
+   [___0|000_] 0
+   [__10|11__] 1
+   [_101|1___] 1
+   -----+-----
+IF !0 ->|1111  -> 15
+
 ```
 
-Most of the complex templates will be directed to find optiisation strategies to make te most of saturation. Many overflow edge cases can be found very early in the reduction process, while some are harder to isolate. MultiPy has the tools to find these tougher cases. 
+Most of the complex templates will be directed to find optiisation strategies to make te most of saturation. Many overflow edge cases can be found very early in the reduction process, take the AND matrix stage, while some are harder to isolate and arise deeper in the combinational logic.
 
   
-
-
-# Analysis
-
-
-
-
-
 
 
 # Templates
 
 
+
+
+
+
+
+# Analysis
 
 
 
