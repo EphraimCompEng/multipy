@@ -17,16 +17,15 @@ Multiplier Lab will present a given entry of a truth table in a matrix:
    
 ```
 
-
+Truth tables will show outputs of every stage of the multiplication:
 
 ```
-    3 * 4 -> 0b0011 * 0b0100
-
-        1011
-   [____0000] 0
-   [___0000_] 0
-   [__1011__] 1
-   [_1011___] 1
-   ----------
+   [ S0:AND ]  ->  [ S1:ADD ]  ->  [ S2:ADD ]
+        1011      
+   [____0000] 0       
+   [___0000_] 0    [__000000] 
+   [__1011__] 1   
+   [_1011___] 1    [100001__]      [10000100]
+   ----------         
 0b [10000100] -> 132
 ```

@@ -1,4 +1,3 @@
-# import numpy as np
 from functools import cache
 from pprint import pprint
 from typing import Any

@@ -1,4 +1,4 @@
-# Data Structure
+# Data Structure Overview
 ___
 The representation of a combinational multiplier.
 
@@ -12,8 +12,8 @@ The AND matrix is a 2D array of bits that represents the AND operation between t
 [ Stage 0 ]
 
 ```
-       overflow|valid
-       --------+-----------
+        b15-b8 | b7-b0
+        -------+--------
         -------|00000000
         ------0|0000000-
         -----00|000000--
