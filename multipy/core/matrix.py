@@ -2,7 +2,9 @@
 # Generating, Aligning Initial Partial Products #
 #################################################
 
+# import multipy as mp
 from typing import Any
+
 
 class Matrix:
     def __init__(self, bits: int):
@@ -29,7 +31,7 @@ class Matrix:
             matrix.append(["_"]*(self.bits-i) + row + ["_"]*i)
         return matrix
 
-    def __repr__(self) -> str:
+    def pprint_matrix(self, matrix: list[list[int]]) -> str:
         """
         Format self.matrix as a string:
 
@@ -39,10 +41,13 @@ class Matrix:
          _0000___"
         """
         pretty = ""
-        for i in self.matrix:
+        for i in matrix:
             row = [str(x) for x in i]
             pretty += "".join(row) + "\n"
         return pretty
+
+    def __repr__(self) -> str:
+        return self.pprint_matrix(self.matrix)
 
     def __str__(self) -> str:
         return self.__repr__()
@@ -60,14 +65,3 @@ class Matrix:
             if matrix[i] != self.matrix[i]:
                 return False
         return True
-
-
-def main():
-    matrix4 = Matrix(4)
-    print(matrix4)
-    matrix8 = Matrix(8)
-    print(matrix8)
-
-    print(matrix4 == matrix4)
-if __name__ == "__main__":
-    main()

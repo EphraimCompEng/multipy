@@ -2,6 +2,8 @@
 # Returns Template Objects Using User Patterns #
 ################################################
 
+class Template:
+    ...
 
 
 """

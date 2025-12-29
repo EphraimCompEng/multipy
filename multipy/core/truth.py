@@ -2,8 +2,7 @@
 # Generate Multiplier Truth Table #
 ###################################
 
-from pprint import pprint
-import template
+import multipy as mp
 import itertools
 
 

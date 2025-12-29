@@ -1,8 +1,17 @@
-from multipy.core import (
-    NpEncoder,
-    and_matrix,
-    operand_test_list,
+from multipy.core.matrix import (
+    Matrix
+)
 
+from multipy.core.algorithm import (
+    Algorithm
+)
+
+# from .core.truth import (
+#     Truth
+# )
+
+from multipy.core.template import (
+    Template
 )
 
 

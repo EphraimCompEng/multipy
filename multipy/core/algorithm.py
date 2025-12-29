@@ -1,9 +1,6 @@
 #############################################
 # Returns Algorithm Objects Using Templates #
 #############################################
-
-import matrix
-
 """
 An algorithm is the application of multiple templates until no partial
 products are left.
@@ -23,7 +20,37 @@ decoders, flooding and sneaky tricks like using carry-in(cin) on adders.
 """
 
 
-class Algorithm:
-    def __init__(self, Template: int):
-        super().__init__(bits)
-        self.fill =
+from typing import Any
+from .matrix import Matrix
+
+class Algorithm(Matrix):
+
+    algorithm = {}
+    def __init__(self) -> None:
+        self.algorithm = {}
+        self.bits = 0
+
+    def populate(self, arg: Any) -> None:
+        """
+        Adds template(s) to an existing algorithm. All templates must be
+        consistent bitwidth.
+        """
+
+        if isinstance(arg, Matrix):
+            arg = [arg]
+        if not(isinstance(arg, list)):
+            raise TypeError("Invalid argument type. Expected list[Matrix] or Matrix.")
+
+        size = arg[0].bits if self.bits == 0 else self.bits
+        for template in arg:
+            if template.bits != size:
+                raise ValueError("All templates must have consistent bitwidth.")
+            self.algorithm[len(self.algorithm)] = template
+        self.bits = size
+
+    def __repr__(self) -> str:
+        pretty = ""
+        print()
+        for i, t in self.algorithm.items():
+            pretty += f"S{i}:\n" + self.pprint_matrix(t) + "\n"
+        return pretty
