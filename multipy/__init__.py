@@ -1,5 +1,5 @@
 from multipy.core.matrix import (
-    Matrix
+    MpMatrix
 )
 
 from multipy.core.algorithm import (

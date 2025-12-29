@@ -21,23 +21,24 @@ decoders, flooding and sneaky tricks like using carry-in(cin) on adders.
 
 
 from typing import Any
-from .matrix import Matrix
+from .matrix import MpMatrix
 
-class Algorithm(Matrix):
+class Algorithm(MpMatrix):
 
     algorithm = {}
     def __init__(self) -> None:
         self.algorithm = {}
         self.bits = 0
+        self.len = len(self.algorithm)
 
     def populate(self, arg: Any) -> None:
         """
-        Adds template(s) to an existing algorithm. All templates must be
+        Adds template(s) to an existing algorithm. All templates must be of
         consistent bitwidth.
         """
 
-        if isinstance(arg, Matrix):
-            arg = [arg]
+        if isinstance(arg, MpMatrix): # warp matrix in list to reuse code
+            arg = [arg] # list(arg) throw error -- implement __iter___?
         if not(isinstance(arg, list)):
             raise TypeError("Invalid argument type. Expected list[Matrix] or Matrix.")
 
@@ -45,7 +46,7 @@ class Algorithm(Matrix):
         for template in arg:
             if template.bits != size:
                 raise ValueError("All templates must have consistent bitwidth.")
-            self.algorithm[len(self.algorithm)] = template
+            self.algorithm[self.len] = template
         self.bits = size
 
     def __repr__(self) -> str:
@@ -54,3 +55,9 @@ class Algorithm(Matrix):
         for i, t in self.algorithm.items():
             pretty += f"S{i}:\n" + self.pprint_matrix(t) + "\n"
         return pretty
+
+def reduce(alg: Algorithm, matrix: MpMatrix) -> None:
+    """
+    Take youngest template, apply it to matrix, then update
+    """
+    ...

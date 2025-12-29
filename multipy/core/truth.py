@@ -2,8 +2,7 @@
 # Generate Multiplier Truth Table #
 ###################################
 
-import multipy as mp
-import itertools
+
 
 
 """
@@ -12,3 +11,13 @@ edge cases and speed. Then refactor by using appropriate patterns,
 simplification, etc., before applying multiprocessing and beyond.
 
 """
+
+
+
+
+import multipy as mp
+import itertools
+
+
+def truth():
+    ...

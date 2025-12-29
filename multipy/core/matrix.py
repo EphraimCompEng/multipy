@@ -6,7 +6,7 @@
 from typing import Any
 
 
-class Matrix:
+class MpMatrix:
     def __init__(self, bits: int):
         valid_range = {4, 8}
         if bits in valid_range:
