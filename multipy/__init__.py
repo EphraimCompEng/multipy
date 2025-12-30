@@ -6,9 +6,9 @@ from multipy.core.algorithm import (
     Algorithm
 )
 
-# from .core.truth import (
-#     Truth
-# )
+from .core.truth import (
+    truth_scope
+)
 
 from multipy.core.template import (
     Template
@@ -57,5 +57,6 @@ SUPPORTED_BIT_LENGTHS = {4, 8}
 __all__ = [
     'MpMatrix',
     'Algorithm',
-    'Template'
+    'Template',
+    'truth_scope'
 ]
