@@ -12,7 +12,7 @@ from .core.truth import (
     truth_table,
 )
 
-from .core.template import (
+from core.template import (
     Template
 )
 
@@ -83,7 +83,6 @@ __all__ = [
     'shallow_truth_table',
     'truth_table',
     'json_pretty_store',
-
     'test_pop_empty_matrix',
     'test_pop_build_matrix',
     'test_pop_agorithm',

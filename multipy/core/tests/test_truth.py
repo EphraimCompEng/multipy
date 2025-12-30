@@ -18,6 +18,7 @@ def test_shallow_generator4() -> None:
         print(a, b)
         print(mp.Matrix.pretty(m))
 
+
 def test_shallow_generator8() -> None:
     # truth8  = mp.truth_scope((2, 64), (1, 2**15))
     # for t in truth8:

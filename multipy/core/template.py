@@ -2,7 +2,6 @@
 # Returns Template Objects Using User Patterns #
 ################################################
 
-
 """
 Simple templates should be represented as a list with each element on
 a new line, this makes it clear how each layer is reduced:
@@ -24,14 +23,15 @@ int or strings, as long as they follow the "run" principle.
 Complex templates require a more rigorous approach.
 
 """
+
+
 from typing import Any
-import multipy as mp
 import string
 import copy
+import multipy as mp
 
 
 class Template:
-
     cell = (ch for ch in string.ascii_lowercase)
 
     def __init__(self, pattern: list[Any]): # Complex or simple
@@ -80,29 +80,13 @@ class Template:
         csa_slice = copy.copy(template_slice)
         tff = char == char.lower() # Toggle flip flop
         for i in range(n):
-            column = [csa_slice[0][i],csa_slice[1][i],csa_slice[2][i]]
+            # column = [csa_slice[0][i],csa_slice[1][i],csa_slice[2][i]]
             # replace non filler elements with template char
-            match column.count('_'):
-                case 0:
-                    csa_slice[0][i] = char
-                    csa_slice[1][i] = char
-                    csa_slice[2][i] = char
-                    result[0][i]   = char
-                    result[1][i-1] = char
-                case 1:
-                    if csa_slice[0][i] == '_':
-                        csa_slice[2][i] = char
-                    else:
-                        csa_slice[0][i] = char
-                    csa_slice[1][i] = char
-                    result[0][i]   = char
-                    result[1][i-1] = char
-                case 2:
-                    if csa_slice[0][i] == '_':
-                        csa_slice[2][i] = char
-                    else:
-                        csa_slice[0][i] = char
-                    result[0][i]   = char
+            csa_slice[0][i] = char if (j:=csa_slice[0][i] != '_') else '_'
+            csa_slice[1][i] = char if (k:=csa_slice[1][i] != '_') else '_'
+            csa_slice[2][i] = char if (l:=csa_slice[2][i] != '_') else '_'
+            result[0][i]    = char if (j+k+l) % 2 == 1 else '_'
+            result[1][i-1]  = char if 1 < (j+k+l) else '_'
             tff  = not(tff) # True -> False -> True...
             char = char.lower() if tff else char.upper()
         return csa_slice, result
