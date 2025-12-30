@@ -27,6 +27,7 @@ Complex templates require a more rigorous approach.
 from typing import Any
 import multipy as mp
 import string
+import copy
 
 
 """
@@ -93,56 +94,84 @@ class Template:
     @classmethod
     def build_csa(
         cls, char: str, template_slice: list[list[Any]]
-    ) -> tuple[list, list]: # (template, result)
-        """"""
-
+    ) -> tuple[list, list]: # Carry Save Adder -> (template, result)
         """
-        ...76543210| bit
-            --------+-----
-            ____0000|  0
-            ___0000_|  1
-            __0000__|  2
-            _0000___|  3
-                    .
-                    .
-                    .
+        Returns template "slices" for a csa reduction and the resulting slice\n
+        [slice]\t[csa]\t\t[result]\n
+        ____0000 ____AaAa         \n
+        ___0000_ ___aAaA_ __AaAaAa\n
+        __0000__ __AaAa__ __aAaA__\n
         """
         if len(template_slice) != 3:
             raise ValueError("Invalid template slice: must be 3 rows")
-        i = 0
         n = len(template_slice[0])
         result = [['_']*n, ['_']*n]
-        csa_slice = template_slice.copy()
-        print(n)
-        tff = True
-        while i < n:
+        csa_slice = copy.copy(template_slice)
+        tff = char == char.lower() # Toggle flip flop
+        for i in range(n):
             column = [csa_slice[0][i],csa_slice[1][i],csa_slice[2][i]]
+            # replace non filler elements with template char
             match column.count('_'):
                 case 0:
                     csa_slice[0][i] = char
                     csa_slice[1][i] = char
                     csa_slice[2][i] = char
-                    result[0][i] = char
-                    result[1][i-1]   = char
+                    result[0][i]   = char
+                    result[1][i-1] = char
                 case 1:
                     if csa_slice[0][i] == '_':
                         csa_slice[2][i] = char
                     else:
                         csa_slice[0][i] = char
                     csa_slice[1][i] = char
-                    result[0][i] = char
-                    result[1][i-1]   = char
+                    result[0][i]   = char
+                    result[1][i-1] = char
                 case 2:
                     if csa_slice[0][i] == '_':
                         csa_slice[2][i] = char
                     else:
                         csa_slice[0][i] = char
                     result[0][i]   = char
+            tff  = not(tff) # True -> False -> True...
             char = char.lower() if tff else char.upper()
-            tff  = not(tff)
-            i += 1
-        # Carry Save Adder
         return csa_slice, result
+
+    @classmethod
+    def build_adder(
+        cls, char: str, template_slice: list[list[Any]]
+    ) -> tuple[list, list]: # Carry Save Adder -> (template, result)
+        """
+        Returns template "slices" for addition and the resulting slice\n
+        [slice ]\t[adder]\t[result]\n
+        ___0000_ ___aAaA_\n
+        __0000__ __AaAa__ _aAaAaA_\n
+        """
+        if len(template_slice) != 2:
+            raise ValueError("Invalid template slice: must be 2 rows")
+        n = len(template_slice[0])
+        result = [['_']*n]
+        adder_slice = copy.copy(template_slice)
+        tff = char == char.lower() # Toggle flip flop
+        for i in range(n):
+            adder_slice[0][i] = char if (j:=adder_slice[0][i] != '_') else '_'
+            adder_slice[1][i] = char if (k:=adder_slice[1][i] != '_') else '_'
+            result[0][i] = char if j or k else '_'
+            tff  = not(tff) # True -> False -> True...
+            char = char.lower() if tff else char.upper()
+
+        # Adding final carry
+        pre_char = char
+        tff  = not(tff) # undoing the last flip from loop
+        char = char.lower() if tff else char.upper()
+        index = result[0].index(char)-1 # find first instance of char - 1
+        result[0][index] = pre_char # place final carry in resultant template
+
+
+        return adder_slice, result
+
+
+
+
 
 
 

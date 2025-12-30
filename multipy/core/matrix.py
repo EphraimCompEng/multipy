@@ -2,7 +2,6 @@
 # Generating, Aligning Initial Partial Products #
 #################################################
 
-from pydoc import classify_class_attrs
 import multipy as mp
 from typing import Any
 
