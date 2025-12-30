@@ -3,5 +3,19 @@ name = "multipy"
 version = "0.1.0"
 description = "A powerful tool to build, test, and analyse multiplier designs."
 readme = "README.md"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
 requires-python = ">=3.13"
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/EphraimCompEng/multipy"
+Issues = "https://github.com/EphraimCompEng/multipy/issues"
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "multipy"
+namespace = true
