@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A powerful tool to build, test, and analyse multiplier designs."
 readme = "README.md"
 license = "AGPL-3.0-or-later"
-license-files = ["LICENSE"]
+license-files = ["LICENSE.md"]
 requires-python = ">=3.13"
 dependencies = []
 
@@ -18,4 +18,4 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "multipy"
-namespace = true
+module-root = ""
