@@ -20,6 +20,21 @@ from .io.lazy_json import (
     json_pretty_store,
 )
 
+from .core.tests.test_population import (
+    test_pop_empty_matrix,
+    test_pop_build_matrix,
+    test_pop_agorithm,
+
+)
+
+from .core.tests.test_templates import (
+   test_temp_build_csa4,
+   test_temp_build_csa8,
+   test_temp_build_adder4,
+   test_temp_build_adder8,
+
+   )
+
 
 """
 MultiPy - Build, test and analyse multiplier designs
@@ -68,4 +83,14 @@ __all__ = [
     'shallow_truth_table',
     'truth_table',
     'json_pretty_store',
+
+    'test_pop_empty_matrix',
+    'test_pop_build_matrix',
+    'test_pop_agorithm',
+    'test_temp_build_csa4',
+    'test_temp_build_csa8',
+    'test_temp_build_adder4',
+    'test_temp_build_adder8',
+
+
 ]

@@ -4,7 +4,7 @@
 
 import multipy as mp
 
-def test_empty_matrix():
+def test_pop_empty_matrix():
     matrix = mp.Matrix(8)
     assert matrix == matrix
     assert matrix.matrix == [
@@ -18,7 +18,7 @@ def test_empty_matrix():
         ['_', 0, 0, 0, 0, 0, 0, 0, 0, '_', '_', '_', '_', '_', '_', '_']
     ]
 
-def test_build_matrix():
+def test_pop_build_matrix():
     matrix         = mp.Matrix(8)
     mult_by_zero_a = mp.Matrix(8)
     mult_by_zero_b = mp.Matrix(8)
@@ -33,7 +33,7 @@ def test_build_matrix():
     # print(vars(mult_by_zero_a))
     # print(vars(mult_by_zero_b))
 
-def test_agorithm():
+def test_pop_agorithm():
     temp1 = mp.Matrix(8) # Placeholder for template
     temp2 = mp.Matrix(8) # Placeholder for template
     arg   = [temp1, temp2]
@@ -47,9 +47,9 @@ def test_agorithm():
 
 
 def main() -> None:
-    test_empty_matrix()
-    test_build_matrix()
-    test_agorithm()
+    test_pop_empty_matrix()
+    test_pop_build_matrix()
+    test_pop_agorithm()
 
 if __name__ == "__main__":
     main()
