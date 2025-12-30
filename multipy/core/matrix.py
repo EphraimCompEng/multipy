@@ -30,26 +30,26 @@ class Matrix:
             matrix.append(["_"]*(self.bits-i) + row + ["_"]*i)
         return matrix
 
-    def build_matrix(self, operand_a: int, operand_b: int):
-        if (len(a := bin(operand_a)[2:]) > self.bits or
-            len(b := bin(operand_b)[2:]) > self.bits):
-
+    @classmethod
+    def build_matrix(cls, operand_a: int, operand_b: int, bits: int):
+        """
+        Build Logical AND matrix using source operands.
+        """
+        if (operand_a > ((2**bits)-1)) or (operand_b > ((2**bits)-1)):
             raise ValueError("Operand bit width exceeds matrix bit width")
 
         # convert to binary, removing '0b' and padding with zeros
         # b is reversed to bring LSB to the top of matrix
-        a = a.zfill(self.bits)
-        b = b.zfill(self.bits)[::-1]
+        a = bin(operand_a)[2:].zfill(bits)
+        b = bin(operand_b)[2:].zfill(bits)[::-1]
         i = 0
         matrix = []
-        while i < self.bits:
-            while i < self.bits and b[i] == '0':
-                matrix.append(["_"]*(self.bits-i) + [0]*(self.bits) + ["_"]*i)
-                i += 1
-            while i < self.bits and b[i] == '1':
-                matrix.append(["_"]*(self.bits-i) + [a] + ["_"]*i)
-                i += 1
-        self.matrix = matrix
+        for i in range(bits-1, -1, -1):
+            if b[i] == '0':
+                matrix.append(["_"]*(i+1) + ['0']*(bits) + ["_"]*(bits-i-1))
+            elif b[i] == '1':
+                matrix.append(["_"]*(i+1) + list(a) + ["_"]*(bits-i-1))
+        return matrix, a, b # exposing operands for access as everthing uses generators
 
     @classmethod
     def pretty(cls, matrix: list[list[Any]]) -> str:

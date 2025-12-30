@@ -1,5 +1,5 @@
 from multipy.core.matrix import (
-    Matrix
+    Matrix,
 )
 
 from multipy.core.algorithm import (
@@ -7,7 +7,9 @@ from multipy.core.algorithm import (
 )
 
 from .core.truth import (
-    truth_scope
+    truth_scope,
+    shallow_truth_table,
+    truth_table,
 )
 
 from multipy.core.template import (
@@ -58,5 +60,7 @@ __all__ = [
     'Matrix',
     'Algorithm',
     'Template',
-    'truth_scope'
+    'truth_scope',
+    'shallow_truth_table',
+    'truth_table',
 ]

@@ -24,11 +24,17 @@ from typing import Any
 from .matrix import Matrix
 
 class Algorithm(Matrix):
+    """
+    A given algorithm is created on top of a zero initialised Logical
+    AND matrix. The first operation in the algorithm must populate
+    this matrix with partial products.
+    """
 
-    algorithm = {}
-    def __init__(self) -> None:
+
+    def __init__(self, matrix: Matrix) -> None:
         self.algorithm = {}
         self.bits = 0
+        self.populate(matrix)
         self.stages = len(self.algorithm)
 
     def populate(self, arg: Any) -> None:
@@ -42,7 +48,7 @@ class Algorithm(Matrix):
         elif not(isinstance(arg, list)):
             raise TypeError("Invalid argument type. Expected list[Matrix] or Matrix.")
 
-        size = arg[0].bits if self.bits == 0 else self.bits
+        size = arg[0].bits if (self.bits == 0) else self.bits
         for template in arg:
             if template.bits != size:
                 raise ValueError("All templates must have consistent bitwidth.")
@@ -53,7 +59,7 @@ class Algorithm(Matrix):
         pretty = ""
         print()
         for i, t in self.algorithm.items():
-            pretty += f"S{i}:\n" + self.pprint_matrix(t) + "\n"
+            pretty += f"S{i}:\n" + str(t) + "\n"
         return pretty
 
     def step(self, matrix: Matrix) -> None:

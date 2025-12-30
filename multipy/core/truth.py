@@ -4,8 +4,8 @@
 
 
 from collections.abc import Generator
-# import multipy as mp
-# import pathlib
+
+from .algorithm import Algorithm
 
 
 
@@ -16,29 +16,43 @@ simplification, etc., before applying multiprocessing and beyond.
 
 """
 
-# Efficient calculation of possible input values(hopefully):
-# for x < a * b < y use x/b < a < y/b to find limits of 'a', for a fixed 'b'
+
 def truth_scope(domain_: tuple[int,int], range_: tuple[int,int]) -> Generator:
     """
-    Generate a generator based on the domain and range of a desired truth table
-    >>> domain = (min_input, max_input)
-    >>> range  = (min_output, max_output)
+    A generator based on the domain and range of a desired truth table.
+    >>> domain = (min_in, max_in)
+    >>> range  = (min_out, max_out)
+    Yields: (operand_a, operand_b)
     """
 
-    min_input, max_input = domain_
-    min_output, max_output = range_
-    if min_input <= 0 or min_output <= 0:
+    min_in, max_in = domain_
+    min_out, max_out = range_
+    if min_in <= 0 or min_out <= 0:
         raise ValueError("Minimum input and output values must be greater than zero.")
-    if min_input > max_input:
+    if min_in > max_in:
         raise ValueError("Minimum input value greater than maximum input value.")
-    if min_output > max_output:
+    if min_out > max_out:
         raise ValueError("Minimum output greater than maximum output value.")
 
-    gen1 = (b for b in range(min_input, max_input + 1))
-    k = 0
+    # Efficient calculation of possible input values via internet:
+    # for x < a * b < y use x/b < a < y/b to find limits of 'a', for a fixed 'b'
+
+    gen1 = (b for b in range(min_in, max_in + 1))
     for b in gen1:
-        if (mn := min_output // b) == 0:
-            k = 1
-        gen2 = (a for a in range(mn + k, (max_output // b)+1))
+        limit_mn_b = (min_out // b) if min_out < (min_out // b) else min_in
+        limit_mx_b = (max_out // b) if (max_out // b) < max_in else max_in
+        gen2 = (a for a in range(limit_mn_b, limit_mx_b+1))
         for a in gen2:
-            yield a, b
+            yield a, b # BUG -- b needs stricter limits
+
+def shallow_truth_table(scope: Generator, alg: Algorithm) -> Generator:
+    print(alg.bits)
+    return (Algorithm.build_matrix(a, b, alg.bits) for a, b in scope)
+
+
+def truth_table(scope: Generator, alg: Algorithm) -> Generator:
+    """
+    A generator which yields all stages of an algorithm for a given
+    set of operands a, b.
+    """
+    ...
