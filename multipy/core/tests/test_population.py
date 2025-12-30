@@ -29,6 +29,9 @@ def test_build_matrix():
     mult_by_zero_b.build_matrix(42, 0)
     assert matrix.bits   == mult_by_zero_a.bits
     assert matrix.bits   == mult_by_zero_b.bits
+    # print(vars(matrix))
+    # print(vars(mult_by_zero_a))
+    # print(vars(mult_by_zero_b))
 
 def test_agorithm():
     temp1 = mp.MpMatrix(8) # Placeholder for template
