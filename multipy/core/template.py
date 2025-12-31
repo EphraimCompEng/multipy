@@ -7,7 +7,7 @@ import multipy as mp
 import copy
 
 
-
+# move to _utils?
 def _is_char(ch:str) -> bool:
     """
     Tests if a string is exactly one alphabetic character
@@ -26,9 +26,9 @@ def build_simple_template(pattern: list[str]
     >>> self.bits = 4
     >>> build_template(self.pattern)
     [['_','_','_','_','a','a','a','a'], # p = ['a',
-        ['_','_','_','a','a','a','a','_'], #      'a',
-        ['_','_','b','b','b','b','_','_'], #      'b',
-        ['_','b','b','b','b','_','_','_']] #      'b',]
+     ['_','_','_','a','a','a','a','_'], #      'a',
+     ['_','_','b','b','b','b','_','_'], #      'b',
+     ['_','b','b','b','b','_','_','_']] #      'b']
     """
     matrix = []
 
@@ -63,7 +63,7 @@ def build_csa(
         csa_slice[1][i] = char if (y1:=csa_slice[1][i] != '_') else '_'
         csa_slice[2][i] = char if (y2:=csa_slice[2][i] != '_') else '_'
         result[0][i]    = char if 1 <= (y0+y1+y2) else '_'
-        result[1][i-1]  = char if 1 < (y0+y1+y2) else '_'
+        result[1][i-1]  = char if 1 <  (y0+y1+y2) else '_'
         tff  = not(tff) # True -> False -> True...
         char = char.lower() if tff else char.upper()
     return csa_slice, result
@@ -85,6 +85,10 @@ def build_adder(
     n = len(template_slice[0])
     result = [['_']*n]
     adder_slice = copy.copy(template_slice) # ensure no references
+
+    # tff x char can be replace with an infinite generator
+    # while True: yield outputs char.upper(); yeild char.lower
+    # make and add to _utils?
     tff         = char == char.lower() # Toggle flip flop
     for i in range(n):
         # For int in template slice, map possible ADD operands to adder_slice
@@ -105,24 +109,8 @@ def build_adder(
 
     return adder_slice, result
 
-###
-# Simple maps move entire rows
-###
-
-# def build_map(char: str, matrix: list[list[Any]]
-# ) -> list[list[int]]:
-#     """
-#     A map matrix holds signed hexadecimal numbers representing a vertical
-#     offset for a given bit when applied to an algorithm.
-
-#     [map]\t   [matrix]\t[effect]\n
-#     00 02 01\t _ 0 1\t  _ 1 _\n
-#     00 FF 00\t 0 1 _\t  0 _ 1\n
-#     00 00 00\t _ _ _\t  _ 0 _\n
-#     """
 
 
-#     ...
 
 
 class Template:
@@ -140,9 +128,26 @@ class Template:
             raise ValueError(f"Valid bit lengths: {valid_range}")
         if _is_char(template[0]):
             self.pattern  = template
-            self.template, self.result  = build_simple_template(template)
+            self.template, self.result = build_simple_template(template)
         elif _is_char(template[0][0]):
             self.template = template
+            self.merged = None
+
+    def merge(self, templates: list[Any]) -> None:
+        """
+        Merge multiple templates into a single template.
+        """
+        assert isinstance(templates, list)
+        # This looks terrible... Works tho?
+        # templates[template[row[str]]]
+        assert isinstance(templates[0][0][0][0], str)
+
+
+        if len(templates) == 0:
+            raise ValueError("No templates provided")
+
+        self.merged = None # PLACEHOLDER #
+        ...
 
 
 
