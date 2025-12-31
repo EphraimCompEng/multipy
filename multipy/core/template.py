@@ -42,19 +42,19 @@ class Template:
             raise ValueError("Invalid pattern: '_' is not allowed")
         self.layers   = len(pattern)
         self.pattern  = pattern
-        self.template = self.__build_template(self.pattern)
+        self.template = self.build_simple_template(self.pattern)
         self.result   = None
 
-
-    def __build_template(self, pattern: list[int|str]) -> list[list[int|str]]:
+    @classmethod
+    def build_simple_template(cls, pattern: list[str]) -> list[list[str]]:
         """
-        Build a template for a bitwidth of self.bits. For example:
+        Build a simple template for a given bitwidth.
         >>> self.bits = 4
         >>> build_template(self.pattern)
-        [['_','_','_','_',1,1,1,1], # p = [1,
-         ['_','_','_',1,1,1,1,'_'], #      1,
-         ['_','_',2,2,2,2,'_','_'], #      2,
-         ['_',2,2,2,2,'_','_','_']] #      2,]
+        [['_','_','_','_','a','a','a','a'], # p = ['a',
+         ['_','_','_','a','a','a','a','_'], #      'a',
+         ['_','_','b','b','b','b','_','_'], #      'b',
+         ['_','b','b','b','b','_','_','_']] #      'b',]
         """
         # row = [0]*self.layers
         matrix = []
@@ -67,7 +67,7 @@ class Template:
         cls, char: str, template_slice: list[list[Any]]
     ) -> tuple[list, list]: # Carry Save Adder -> (template, result)
         """
-        Returns template "slices" for a csa reduction and the resulting slice\n
+        Returns template "slices" for a csa reduction and the resulting slice.\n
         [slice]\t[csa]\t\t[result]\n
         ____0000 ____AaAa         \n
         ___0000_ ___aAaA_ __AaAaAa\n
@@ -86,7 +86,7 @@ class Template:
             csa_slice[1][i] = char if (y1:=csa_slice[1][i] != '_') else '_'
             csa_slice[2][i] = char if (y2:=csa_slice[2][i] != '_') else '_'
             result[0][i]    = char if 1 <= (y0+y1+y2) else '_'
-            result[1][i-1]  = char if 1 <= (y0+y1+y2) else '_'
+            result[1][i-1]  = char if 1 < (y0+y1+y2) else '_'
             tff  = not(tff) # True -> False -> True...
             char = char.lower() if tff else char.upper()
         return csa_slice, result
@@ -96,7 +96,7 @@ class Template:
         cls, char: str, template_slice: list[list[Any]]
     ) -> tuple[list, list]: # Carry Save Adder -> (template, result)
         """
-        Returns template "slices" for addition and the resulting slice\n
+        Returns template "slices" for addition and the resulting slice.\n
         [slice ]\t[adder]\t[result]\n
         ___0000_ ___aAaA_\n
         __0000__ __AaAa__ _aAaAaA_\n
@@ -116,13 +116,27 @@ class Template:
 
         # Adding final carry
         pre_char = char
-        tff  = not(tff) # undoing the last flip from loop
+        tff  = not(tff) # Undo last flip to find lasr used tff value
         char = char.lower() if tff else char.upper()
         index = result[0].index(char)-1 # find first instance of char - 1
-        result[0][index] = pre_char # place final carry in resultant template
+        result[0][index] = pre_char # Final carry place in result template
 
 
         return adder_slice, result
+
+    @classmethod
+    def build_map(cls,char: str, template_slice: list[list[Any]]
+    ) -> list[list[int]]:
+        """
+        A map matrix holds signed hexadecimal numbers representing a vertical
+        offset for a given bit when applied to an algorithm.
+
+        [map]\t   [matrix]\t[effect]\n
+        00 02 01\t _ 0 1\t  _ 1 _\n
+        00 FF 00\t 0 1 _\t  0 _ 1\n
+        00 00 00\t _ _ _\t  _ 0 _\n
+        """
+        ...
 
 
 
