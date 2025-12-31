@@ -82,11 +82,11 @@ class Template:
         for i in range(n):
             # column = [csa_slice[0][i],csa_slice[1][i],csa_slice[2][i]]
             # replace non filler elements with template char
-            csa_slice[0][i] = char if (j:=csa_slice[0][i] != '_') else '_'
-            csa_slice[1][i] = char if (k:=csa_slice[1][i] != '_') else '_'
-            csa_slice[2][i] = char if (l:=csa_slice[2][i] != '_') else '_'
-            result[0][i]    = char if (j+k+l) % 2 == 1 else '_'
-            result[1][i-1]  = char if 1 < (j+k+l) else '_'
+            csa_slice[0][i] = char if (y0:=csa_slice[0][i] != '_') else '_'
+            csa_slice[1][i] = char if (y1:=csa_slice[1][i] != '_') else '_'
+            csa_slice[2][i] = char if (y2:=csa_slice[2][i] != '_') else '_'
+            result[0][i]    = char if 1 <= (y0+y1+y2) else '_'
+            result[1][i-1]  = char if 1 <= (y0+y1+y2) else '_'
             tff  = not(tff) # True -> False -> True...
             char = char.lower() if tff else char.upper()
         return csa_slice, result
@@ -108,9 +108,9 @@ class Template:
         adder_slice = copy.copy(template_slice)
         tff = char == char.lower() # Toggle flip flop
         for i in range(n):
-            adder_slice[0][i] = char if (j:=adder_slice[0][i] != '_') else '_'
-            adder_slice[1][i] = char if (k:=adder_slice[1][i] != '_') else '_'
-            result[0][i] = char if j or k else '_'
+            adder_slice[0][i] = char if (y0:=adder_slice[0][i] != '_') else '_'
+            adder_slice[1][i] = char if (y1:=adder_slice[1][i] != '_') else '_'
+            result[0][i] = char if y0 or y1 else '_'
             tff  = not(tff) # True -> False -> True...
             char = char.lower() if tff else char.upper()
 

@@ -12,7 +12,7 @@ from .core.truth import (
     truth_table,
 )
 
-from core.template import (
+from .core.template import (
     Template
 )
 
