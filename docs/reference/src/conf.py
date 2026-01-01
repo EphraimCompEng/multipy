@@ -16,6 +16,7 @@ project = 'MultiPy'
 copyright = '2025, Ephraim Madugba'
 author = 'Ephraim Madugba'
 release = '0.1.1'
+stable = 'v' + ".".join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -31,3 +32,16 @@ exclude_patterns = []
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+# -- Exposing variables to .rst files ----------------------------------------
+# https://stackoverflow.com/a/69211912 , https://stackoverflow.com/q/34006784
+variables_to_export = [
+    "project",
+    "copyright",
+    "release",
+    "stable"
+]
+
+frozen_locals = dict(locals())
+rst_epilog = '\n'.join(map(lambda x: f".. |{x}| replace:: {frozen_locals[x]}", variables_to_export))
+del frozen_locals
