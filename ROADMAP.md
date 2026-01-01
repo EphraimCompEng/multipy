@@ -10,21 +10,39 @@ Starting point:
 - [x] Automatic version control (MAJOR.MINOR.PATCH) -- uv
 - [x] **Basic** testing
 
+## Structure
+
+The entire library functions via three structures: Algorithms which initialise a Matrix which are then subsequesntly reduced by templates.
+- [x] Algorithm, Matrix and Template classes formalised
+- [ ] Correctly implement custom Types. (Templates need work)
+- [x] simple templates 
+- [ ] Complex templates 
+- [ ] Simple reduction
+- [ ] Comples reduction
+- [ ] Simple row map
+- [ ] Complete map matrix
+- [ ] Algorithm.state and .step()
+
 ## Algorithm
 Wallace Tree multipliers will be the first focus of the library, before moving onto [Dadda](https://en.wikipedia.org/wiki/Dadda_multiplier) and signed multipliers.
 
 Basic functionality; "simple templates", generate, analyse:
 
-- [ ] 8-bit unsaturated multiply 
-- [ ] 8-bit unsaturated multiply
-- [ ] 8-bit saturated multiply 
+- [ ] 4-bit unsaturated multiply [Built-in]\*
+- [ ] 8-bit unsaturated multiply [Built-in]
+- [ ] 4-bit saturated multiply [Built-in]
+- [ ] 8-bit saturated multiply [Built-in]
 - [x] Truth table generation -> ~Parquet~ json
 - [ ] Implement I/O via [Parquet](https://parquet.apache.org/)
-- [ ] Truth table generation -> Parquet
+- [x] Truth table generation -> Parquet
 - [ ] Basic analysis/visualisation of bit ranges]
+
+\* Note: once built-in functions and classes are operational, hand crafted templates and maps will also be functional.
+simple templates -> internally called patters, form -> complex templates.
 
 ## Documentation
 
+- [x] Sphinx implementation
 - [ ] Setup Github Wiki with [typst](https://typst.app/)? [sphinx](https://www.sphinx-doc.org/en/master/)?
 - [ ] Improve and provide a focused overview of features 
 - [ ] Provide academic sources
