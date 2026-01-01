@@ -25,10 +25,12 @@ def build_simple_template(pattern: list[str]) -> list[list[str]]:
     >>> self.bits = 4
     >>> build_template(self.pattern)
 
-    [['_','_','_','_','A','a','A','a'], # p = ['a',\n
-    ['_','_','_','A','a','A','a','_'], #       'a',\n
-    ['_','_','B','b','B','b','_','_'], #       'b',\n
-    ['_','B','b','B','b','_','_','_']] #       'b']\n
+    matrix = [                         # pattern = [\n
+    ['_','_','_','_','A','a','A','a'], # 'a',\n
+    ['_','_','_','A','a','A','a','_'], # 'a',\n
+    ['_','_','B','b','B','b','_','_'], # 'b',\n
+    ['_','B','b','B','b','_','_','_'], # 'b']\n
+    ]
     """
     matrix = []
 
@@ -86,7 +88,8 @@ def build_adder(
     result = [['_']*n]
     adder_slice = copy.copy(template_slice) # ensure no references
 
-    # tff x char can be replace with an infinite generator
+    ### TODO
+    # tff + char startegy can be replace with an infinite generator:
     # while True: yield outputs char.upper(); yeild char.lower
     # make and add to _utils?
     tff = (char == char.lower()) # Toggle flip flop
@@ -111,7 +114,18 @@ def build_adder(
 
 
 
+class Pattern:
+    def __init__(self, pattern: list[str]):
+        assert isinstance(pattern, list) and all(_ischar(row) for row in pattern), (
+            "Error: Invalid pattern format. Expected list[char]"
+        )
+        self.pattern = pattern
 
+    def __str__(self):
+        p_str = ""
+        for p in self.pattern:
+            p_str += " " + p + "\n"
+        return f"{'['+ p_str[1:-2]+']'}"
 
 class Template:
     # import string

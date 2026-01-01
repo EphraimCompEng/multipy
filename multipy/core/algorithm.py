@@ -2,7 +2,17 @@
 # Algorithm Are Defined Using Templates #
 #########################################
 
+"""
+Algorithm process:
+0: Generate logical AND matrix
+1: split matrix
+2: apply template, update state
+3: generate result
+4: optionally apply map
+5: update matrix
+6: GOTO 1:
 
+"""
 
 import multipy as mp
 from typing import Any
@@ -39,6 +49,18 @@ class Algorithm(mp.Matrix):
             self.algorithm[len(self.algorithm)] = template
         self.bits = bit
 
+    @classmethod
+    def split(cls, matrix: mp.Matrix, rows: int) -> list[mp.Matrix]:
+        """
+        Returns list of slices via progressive allocation.
+        
+        Append n contiguous slices of matrix, each containing x rows.
+        If not enough rows, progress to rows-1 -> row-2 -> ...
+        """
+        x = 0
+        if len(matrix) - (x * rows) < rows:
+            
+        ...
 
     @classmethod
     def step(cls, matrix: mp.Matrix) -> None:

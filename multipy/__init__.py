@@ -2,6 +2,15 @@ from .core.matrix import (
     Matrix,
 )
 
+
+from .core.template import (
+    Pattern,
+    Template,
+    build_simple_template,
+    build_csa,
+    build_adder,
+)
+
 from .core.algorithm import (
     Algorithm
 )
@@ -10,13 +19,6 @@ from .core.truth import (
     truth_scope,
     shallow_truth_table,
     truth_table,
-)
-
-from .core.template import (
-    Template,
-    build_simple_template,
-    build_csa,
-    build_adder,
 )
 
 from .io.lazy_json import (
@@ -90,8 +92,9 @@ SUPPORTED_BITWIDTHS = {4, 8}
 
 __all__ = [
     'Matrix',
-    'Algorithm',
+    'Pattern',
     'Template',
+    'Algorithm',
     'build_simple_template',
     'build_csa',
     'build_adder',

@@ -4,42 +4,58 @@
 import multipy as mp
 
 
+"""temp note:
 
+Just realised that build_csa and build_adder are auto-resolving the
+correct csa grouping/adder length. A function that can split a matrix
+into slices, optimising for 3 layer sices, will amount to completing
+the Algorithm class.
+
+Algorithm process:
+0: Generate logical AND matrix
+1: split matrix
+2: apply template, update state
+3: generate result
+4: optionally apply map
+5: update matrix
+6: GOTO 1:
+
+"""
 def test_temp_build_csa4() -> None:
     matrix4  = mp.Matrix(4)
-    pattern  = mp.Matrix(4)
-    pattern = list(pattern.matrix[:3])
-    my_pattern = mp.Template.build_csa('a', pattern)
+    slice  = mp.Matrix(4)
+    slice  = list(slice.matrix[:3])
+    my_slice = mp.build_csa('a', slice)
     print(mp.Matrix.pretty(matrix4.matrix))
-    print(mp.Matrix.pretty(my_pattern[0]))
-    print(mp.Matrix.pretty(my_pattern[1]))
+    print(mp.Matrix.pretty(my_slice[0]))
+    print(mp.Matrix.pretty(my_slice[1]))
 
 def test_temp_build_csa8() -> None:
     matrix8  = mp.Matrix(8)
-    pattern2  = mp.Matrix(8)
-    pattern2 = list(pattern2.matrix[3:6])
-    my_pattern = mp.Template.build_csa('b', pattern2)
+    slice2  = mp.Matrix(8)
+    slice2 = list(slice2.matrix[3:6])
+    my_slice = mp.build_csa('b', slice2)
     print(mp.Matrix.pretty(matrix8.matrix))
-    print(mp.Matrix.pretty(my_pattern[0]))
-    print(mp.Matrix.pretty(my_pattern[1]))
+    print(mp.Matrix.pretty(my_slice[0]))
+    print(mp.Matrix.pretty(my_slice[1]))
 
 def test_temp_build_adder4() -> None:
     matrix4 = mp.Matrix(4)
-    pattern = mp.Matrix(4)
-    pattern = list(pattern.matrix[2:])
-    my_pattern = mp.Template.build_adder('a', pattern)
+    slice = mp.Matrix(4)
+    slice = list(slice.matrix[2:])
+    my_slice = mp.build_adder('a', slice)
     print(mp.Matrix.pretty(matrix4.matrix))
-    print(mp.Matrix.pretty(my_pattern[0]))
-    print(mp.Matrix.pretty(my_pattern[1]))
+    print(mp.Matrix.pretty(my_slice[0]))
+    print(mp.Matrix.pretty(my_slice[1]))
 
 def test_temp_build_adder8() -> None:
     matrix4 = mp.Matrix(8)
-    pattern = mp.Matrix(8)
-    pattern = list(pattern.matrix[:2])
-    my_pattern = mp.Template.build_adder('a', pattern)
+    slice = mp.Matrix(8)
+    slice = list(slice.matrix[:2])
+    my_slice = mp.build_adder('a', slice)
     print(mp.Matrix.pretty(matrix4.matrix))
-    print(mp.Matrix.pretty(my_pattern[0]))
-    print(mp.Matrix.pretty(my_pattern[1]))
+    print(mp.Matrix.pretty(my_slice[0]))
+    print(mp.Matrix.pretty(my_slice[1]))
 
 def main() -> None:
     test_temp_build_csa4()
