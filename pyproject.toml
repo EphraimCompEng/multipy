@@ -1,6 +1,6 @@
 [project]
 name = "multipy"
-version = "0.1.0"
+version = "0.1.2"
 description = "A powerful tool to build, test, and analyse multiplier designs."
 readme = "README.md"
 license = "AGPL-3.0-or-later"
@@ -19,3 +19,13 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "multipy"
 module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest==9.0.2",
+     "sphinx-rtd-theme==3.1.0rc1",
+     "sphinx<=9.1.0",
+     "docutils==0.21.2",
+     "furo==2025.12.19",
+     "toml-rs==0.2.2",
+]
