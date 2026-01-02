@@ -10,7 +10,7 @@ Subpackages
    multipy.core
    multipy.datasets
    multipy.io
-   multipy.tests
+
 
 Module contents
 ---------------

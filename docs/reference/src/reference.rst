@@ -5,6 +5,8 @@ API Reference
 
 
 .. toctree::
-   :glob:
+    :glob:
 
-   api/*
+    api/multipy.core
+    api/multipy.datasets
+    api/multipy.io

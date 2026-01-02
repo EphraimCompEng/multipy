@@ -21,10 +21,3 @@ MultiPy Documentation
 - Further Reading: `Overview <https://github.com/EphraimCompEng/multipy/tree/master/docs>`_ | `Teman, A. Fast Multipliers <https://youtu.be/4FwESTOVT-o/>`_
 
 This project is in early development. If you would like to contribute, head over to :ref:`contact`.
-
-Other Links:
-____________
-
-.. hlist::
-    * `Releases <https://github.com/EphraimCompEng/multipy/tags>`_
-    * `Roadmap <https://github.com/EphraimCompEng/multipy/blob/master/ROADMAP.md>`_
