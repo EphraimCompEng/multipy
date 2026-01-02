@@ -4,17 +4,17 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 import sys
+from .... import multipy as mp
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 print(sys.path)
 
-import multipy
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'MultiPy'
 copyright = '2025, Ephraim Madugba'
 author = 'Ephraim Madugba'
-release = '0.1.1'
+release = mp.MP_VERSION
 stable = 'v' + ".".join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------

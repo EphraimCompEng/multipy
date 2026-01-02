@@ -1,4 +1,8 @@
 #!bin/python3
+
+from pathlib import Path
+import toml_rs
+
 from .core.matrix import (
     Matrix,
 )
@@ -28,10 +32,10 @@ from .io.lazy_json import (
 
 # from .io.parquet import()
 
-# -- External -------------------------
+# -- External -----------------------------------
 
 
-# -- Tests ----------------------------
+# -- Tests --------------------------------------
 
 # from .tests.test_population import (
 #     test_pop_empty_matrix,
@@ -89,7 +93,17 @@ Copy vs in-place
 """
 
 
+
+# -- pyproject.toml metadata --------------------
+
+
+with open(Path(__file__).parent.parent / "pyproject.toml", "r") as f:
+    MP_TOML = toml_rs.loads(f.read())
+
+MP_VERSION = MP_TOML["project"]["version"]
+
 SUPPORTED_BITWIDTHS = {4, 8}
+
 
 __all__ = [
     'Matrix',
