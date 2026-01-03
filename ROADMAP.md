@@ -10,7 +10,7 @@ Starting point:
 - [x] Automatic version control (MAJOR.MINOR.PATCH) -- uv
 - [x] **Basic** testing
 
-## Structure
+## Structures
 
 The entire library functions via three structures: Algorithms which initialise a Matrix which are then subsequesntly reduced by templates.
 - [x] Algorithm, Matrix and Template classes formalised
@@ -18,7 +18,7 @@ The entire library functions via three structures: Algorithms which initialise a
 - [x] simple templates 
 - [ ] Complex templates 
 - [ ] Simple reduction
-- [ ] Comples reduction
+- [ ] Complex reduction
 - [ ] Simple row map
 - [ ] Complete map matrix
 - [ ] Algorithm.state and .step()
@@ -73,6 +73,8 @@ Supported algoithms:
 
 # Advanced Functionality
 Once the library is stable and optimised:
+- [ ] Decoder with custom encodings
+- [ ] Optional Booth encoding instead of AND matrix
 - [ ] "Timing" stages/templates/multipliers -- User defined latencies
-- [ ] 32-bit unsaturated multiply?
-- [ ] 32-bit saturated multiply?
+- [ ] 32-bit ?
+- [ ] 64-bit ?
