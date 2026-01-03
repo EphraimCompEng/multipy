@@ -37,16 +37,18 @@ Contents
 
 **Define Algorithm**
 
-**Use Algorithm**
+**Generate Truth table m**
 
-Algorithm process:
-0: Generate logical AND matrix
-1: split matrix
-2: apply template, update state
-3: generate result
-4: optionally apply map
-5: update matrix
-6: GOTO 1:
+.. code-block:: text
+    Truth Table tests inputs against the algorithm.
+        Algorithm process:
+        0: Generate logical AND matrix
+        1: split matrix
+        2: apply template, update state
+        3: generate result
+        4: optionally apply map
+        5: update matrix
+        6: GOTO 1:
 
 
 .. _setup:
