@@ -14,7 +14,8 @@ Contents
 --------
 
 - :ref:`setup`
-- :ref:`remap`
+- :ref:`reduce`
+- :ref:`map`
 - :ref:`define_algorithm`
 - :ref:`use_algorithm`
 
