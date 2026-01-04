@@ -8,32 +8,68 @@
 ###
 # Simple maps move entire rows
 ###
-#
-# import multipy as mp
-# from typing import Any
+
+import multipy as mp
+from typing import Any
 
 
-def build_map(
-) -> list[list[int]]:
+class Map:
+
+    def __init__(self, map: list[Any], bits: int) -> None:
+        assert isinstance(map, list), ValueError("Map must be a list")
+        assert bits in mp.SUPPORTED_BITWIDTHS, (
+            ValueError(f"\tError: Unsupported bitwidth {bits}. Expected {mp.SUPPORTED_BITWIDTHS}")
+        )
+        self.bits = bits
+        if isinstance(map[0], list):
+            self.map = map
+        else:
+            self.map = self.build_map(map)
+
+
+    def build_map(self, simple: list[Any]) -> mp.Map:
+        """
+        Use simple map to generate standard map. Each element of simple map
+        is a 2-bit, signed hex value. +ve = up, -ve = down.
+        """
+
+        ...
+
+def build_simple_map(matrix: mp.Matrix, reversed: bool=False) -> mp.Map:
     """
-    A map matrix holds signed hexadecimal numbers representing a vertical
-    offset for a given bit when applied to an algorithm.
-
-    [matrix] || [map---] || [effect]
-     _ 0 1 > || 00 02 01 || > _ 1 _
-     0 1 _ > || 00 FF 00 || > 0 _ 1
-     _ _ _ > || 00 00 00 || > _ 0 _
+    Find empty rows, create simple map to efficiently pack rows.
+    Defaults to bottom unless reversed=True.
     """
     ...
 
-def build_dadda_map():
+def dadda_map(bits):
     """
     Return map to collect partial products into an upside down triangle:
     a prerequisite for the dadda algorithm.
     """
-    ...
+    assert bits in mp.SUPPORTED_BITWIDTHS, (
+        ValueError(f"\tError: Unsupported bitwidth {bits}. Expected {mp.SUPPORTED_BITWIDTHS}")
+    )
 
-def build_simple_map():
-    """
-    """
-    ...
+    # -- Repulsive - Design algorithm for 16-bit+ --------------------------------------------- #
+    dadda_map = {                                                                               #
+        4: [                                                                                    #
+            ['00','00','00','00','00','00','00','00'],                                          #
+            ['00','00','00','FF','00','00','00','00'],                                          #
+            ['00','00','FE','FF','00','00','00','00'],                                          #
+            ['00','FD','FE','FF','00','00','00','00']                                           #
+        ],                                                                                      #
+        8: [                                                                                    #
+            ['00','00','00','00','00','00','00','00','00','00','00','00','00','00','00','00'],  #
+            ['00','00','00','00','00','00','00','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','00','00','00','00','00','FE','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','00','00','00','00','FD','FE','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','00','00','00','FC','FD','FE','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','00','00','FB','FC','FD','FE','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','00','FA','FB','FC','FD','FE','FF','00','00','00','00','00','00','00','00'],  #
+            ['00','F9','FA','FB','FC','FD','FE','FF','00','00','00','00','00','00','00','00']   #
+        ]                                                                                       #
+    }                                                                                           #
+    # ----------------------------------------------------------------------------------------- #
+
+    return Map(dadda_map[bits])
