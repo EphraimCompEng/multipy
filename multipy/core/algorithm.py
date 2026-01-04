@@ -32,8 +32,18 @@ class Algorithm(mp.Matrix):
         self.matrix    = matrix
         self.result    = {}
         self.algorithm = {}
-        self.stage     =
-        # self.populate(matrix) # -- Reactor
+        """Structure of algorithm:
+        >>> self.algorithm[0] = {
+        >>>     "matrix" : mp.Matrix
+        >>>     "map"    : mp.Map
+        >>> }
+        >>> self.algorithm[x] = {
+        >>>     "template" : mp.Template
+        >>>     "result"   : mp.Matrix
+        >>>     "map"      : mp.Map
+        >>> }
+        """
+        self.stage     = self.algorithm[self.state]
 
     def __repr__(self) -> str:
         pretty = ""
