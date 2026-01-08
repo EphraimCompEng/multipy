@@ -25,7 +25,6 @@ module-root = ""
 [dependency-groups]
 dev = [
     "pytest==9.0.2",
-    "sphinx-rtd-theme==3.1.0rc1",
     "sphinx<=9.1.0",
     "docutils==0.21.2",
     "sphinx-breeze-theme>=0.6.0",
