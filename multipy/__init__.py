@@ -31,8 +31,13 @@ from .core.truth import (
 from .core.map import (
     Map,
     build_dadda_map,
-    build_simple_map,
+    resolve_rmap,
 )
+
+from .core.utils.char import (
+    ischar,
+)
+
 
 # -- datasets -----------------------------------
 
@@ -88,8 +93,9 @@ __all__ = [
     'Template',
     'Algorithm',
     'Map',
+    'ischar',
     'build_dadda_map',
-    'build_simple_map',
+    'resolve_rmap',
     'build_simple_template',
     'build_csa',
     'build_adder',
@@ -97,6 +103,8 @@ __all__ = [
     'shallow_truth_table',
     'truth_table',
     'json_pretty_store',
+
+
 
     # 'test_pop_empty_matrix',
     # 'test_pop_build_matrix',
