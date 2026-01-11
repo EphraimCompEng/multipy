@@ -3,7 +3,7 @@
 #################################################
 
 import multipy as mp
-from typing import Any
+from typing import Any, Iterator
 
 class Slice:
     """
@@ -12,14 +12,37 @@ class Slice:
     def __init__(self, matrix: list[list[str]]):
         self.slice =  matrix
         self.bits  = len(self.slice[0][0]) >> 1
+        self._index = 0
+        self.len   = len(self.slice)
+
+    def __getitem__(self, index: int) -> list[str]:
+        return self.slice[index]
+
+    def __iter__(self) -> Iterator:
+        return self
+
+    def _repr_(self):
+        return mp.pretty(self.slice)
+
+    def __str__(self):
+        return str(self._repr_())
+
+    def __next__(self):
+        if self._index >= self.len:
+            raise StopIteration
+        self._index += 1
+        return self.slice[self._index - 1]
 
 class Matrix:
     def __init__(self, bits: int):
         valid_range = mp.SUPPORTED_BITWIDTHS
+        self.bits   = bits
+        self._index = 0
+
         if bits not in valid_range:
             raise ValueError(f"Valid bit lengths: {valid_range}")
-        self.bits = bits
         self.matrix = self.__empty_matrix()
+        self.len    = len(self.matrix)
 
     def __empty_matrix(self) -> list[list[str]]:
         """
@@ -79,3 +102,12 @@ class Matrix:
 
     def __getitem__(self, index: int) -> Slice:
         return mp.Slice([self.matrix[index]])
+
+    def __iter__(self):
+        return iter(self.matrix)
+
+    def __next__(self):
+        if self._index >= self.len:
+            raise StopIteration
+        self._index += 1
+        return self.matrix[self._index - 1]
