@@ -5,12 +5,12 @@
 
 The entire library functions via three structures: Algorithms which initialise a Matrix which are then subsequesntly reduced by templates.
 - [x] Algorithm, Matrix and Template classes formalised
-- [ ] Correctly implement custom Types. (Templates need work)
+- [x] Correctly implement custom Types. (Templates need work -- Slices implemented)
 - [x] simple templates 
 - [ ] Complex templates 
 - [ ] Simple reduction
 - [ ] Complex reduction
-- [ ] Simple row map
+- [x] Simple row map
 - [ ] Complete map matrix
 - [ ] Algorithm.state and .step()
 
