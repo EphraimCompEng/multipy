@@ -2,9 +2,10 @@
 # Returns Template Objects Using User Patterns #
 ################################################
 
-import copy
 from typing import Any
 from .utils.char import ischar
+import multipy as mp
+import copy
 
 
 
@@ -29,8 +30,8 @@ def build_simple_template(pattern: list[str]) -> list[list[str]]:
 # Defining a new Template type for list[list[Any]] would be useful?
 
 def build_csa(
-    char: str, zeroed_slice: list[list[Any]]
-) -> tuple[list, list]: # Carry Save Adder -> (template, result)
+    char: str, zeroed_slice: mp.Slice
+) -> tuple[mp.Slice, mp.Slice]: # Carry Save Adder -> (template, result)
     """
     Create CSA template slice with zero initialised slice and chosen char.
     Returns template "slices" for a csa reduction and the resulting slice.\n
@@ -59,12 +60,12 @@ def build_csa(
         result[1][i-1]  = char if 1 <  (y0+y1+y2) else '_'
         tff  = not(tff) # True -> False -> True...
         char = char.lower() if tff else char.upper()
-    return csa_slice, result
+    return csa_slice, mp.Slice(result)
 
 
 def build_adder(
-    char: str, zeroed_slice: list[list[Any]]
-) -> tuple[list, list]: # Carry Save Adder -> (template, result)
+    char: str, zeroed_slice: mp.Slice
+) -> tuple[mp.Slice, mp.Slice]: # Carry Save Adder -> (template, result)
     """
     Create CSA template slice with zero initialised slice and chosen char.
     Returns template "slices" for addition and the resulting slice.\n

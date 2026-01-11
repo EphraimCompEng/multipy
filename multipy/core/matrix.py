@@ -14,14 +14,19 @@ class Slice:
     def __getitem__(self, index: int) -> list[str]:
         return self.slice[index]
 
-    def __iter__(self) -> Iterator:
-        return self
 
     def _repr_(self):
         return mp.pretty(self.slice)
 
     def __str__(self):
         return str(self._repr_())
+
+    def __len__(self) -> int:
+        print(len(self.slice))
+        return len(self.slice)
+
+    def __iter__(self) -> Iterator:
+        return self
 
     def __next__(self):
         if self._index >= self.len:
@@ -44,7 +49,7 @@ class Matrix:
                 f"Unsupported bitwidth {source}. Expected {mp.SUPPORTED_BITWIDTHS}"
             )
             self.bits = source
-            self.matrix = self.__empty_matrix()
+            self.__empty_matrix()
         elif all([isinstance(s, list) for s in source]):
             assert len(source) in mp.SUPPORTED_BITWIDTHS,(
                 f"Unsupported bitwidth {len(source)}. Expected {mp.SUPPORTED_BITWIDTHS}"
@@ -56,7 +61,7 @@ class Matrix:
         self._index = 0
 
 
-    def __empty_matrix(self) -> list[list[str]]:
+    def __empty_matrix(self) -> None:
         """
         Build a wallace tree style logic AND matrix for a bitwidth of self.bits.
         """
@@ -64,7 +69,7 @@ class Matrix:
         matrix = []
         for i in range(self.bits):
             matrix.append(["_"]*(self.bits-i) + row + ["_"]*i)
-        return matrix
+        self.matrix = Matrix(matrix)
 
     def __repr__(self) -> str:
         return mp.pretty(self.matrix)
@@ -84,12 +89,13 @@ class Matrix:
                 return False
         return True
 
-    def __getslice__(self, start: int, stop: int) -> Slice:
-        slice = self.matrix[start:stop]
-        return mp.Slice(slice)
+    # def __getslice__(self, start: int=0, stop: int=0) -> Slice:
+    #     slice = self.matrix[start:stop]
+    #     print(slice)
+    #     return mp.Slice(slice)
 
-    def __getitem__(self, index: int) -> Slice:
-        return mp.Slice([self.matrix[index]])
+    def __getitem__(self, index: slice) -> Slice:
+        return mp.Slice(self.matrix[index])
 
     def __iter__(self):
         return iter(self.matrix)
