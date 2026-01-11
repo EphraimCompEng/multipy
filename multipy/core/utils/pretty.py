@@ -12,20 +12,16 @@ def pretty(listy_object: Any) -> str:
     >>> __0000__
     >>> _0000___
     """
-    assert isinstance(listy_object, (Matrix, Slice, Map)), (
+    assert isinstance(listy_object, (Matrix, Slice, Map, list)), (
         "Unsupported type"
     )
 
-    # initialise pretty string
     pretty_    = ""
-
-    # Add whitespace to map objects for readability
     whitespace = " " if isinstance(listy_object, Map) else ""
 
     for i in listy_object:
         row = [str(x) + whitespace for x in i]
         pretty_ += "".join(row) + "\n"
-        # print(pretty_)
     return str(pretty_)
 
 
