@@ -9,18 +9,17 @@ from typing import Any
 
 class Map:
 
-    def __init__(self, map: list[Any], bits: int) -> None:
+    def __init__(self, map: list[Any]) -> None:
         assert isinstance(map, list), ValueError("Map must be a list")
-        assert bits in mp.SUPPORTED_BITWIDTHS, (
+        assert (bits := len(map)) in mp.SUPPORTED_BITWIDTHS, (
             (f"Unsupported bitwidth {bits}. Expected {mp.SUPPORTED_BITWIDTHS}")
         )
-        self.bitsS = bits
+        self.bits = bits
         if isinstance(map[0], list):
             self.map = map
         elif all([isinstance(x, str) for x in map]):
             self.map  = self.build_map(map)
             self.rmap = map
-        self.len = len(map)
         self._index = 0
 
 
@@ -50,26 +49,36 @@ class Map:
         return iter(self.map)
 
     def __next__(self):
-        if self._index >= self.len:
+        if self._index >= self.bits:
             raise StopIteration
         self._index += 1
         return self.map[self._index - 1]
 
 # May remove reversed option
-def resolve_rmap(matrix: mp.Matrix, reversed: bool=False) -> Map:
+def resolve_rmap(matrix: mp.Matrix) -> Map:
     """
     Find empty rows, create simple map to efficiently pack rows.
     Defaults to bottom unless reversed=True.
     """
-    ...
+    offset = 0
+    smap = []
+    for i in matrix:
+        if all([(b == '_' or b == '0') for b in i]):
+            offset += 1
+            smap.append("00")
+            continue
+
+        # Not sure how else to convert -ve int -> 2s comp hex
+        smap.append(f"{hex(255-offset)[2:].upper()}")
+    return Map(smap)
+
 
 def build_dadda_map(bits) -> Map:
-    from multipy import SUPPORTED_BITWIDTHS
     """
     Return map which represents starting point of Dadda tree algorithm.
     """
-    assert bits in SUPPORTED_BITWIDTHS, (
-        ValueError(f"\tError: Unsupported bitwidth {bits}. Expected {SUPPORTED_BITWIDTHS}")
+    assert bits in mp.SUPPORTED_BITWIDTHS, (
+        ValueError(f"\tError: Unsupported bitwidth {bits}. Expected {mp.SUPPORTED_BITWIDTHS}")
     )
 
     # -- Repulsive - Design algorithm for 16-bit+ ------------------------------ #
@@ -93,4 +102,4 @@ def build_dadda_map(bits) -> Map:
     }                                                                            #
     # -------------------------------------------------------------------------- #
 
-    return Map(dadda_map[bits], bits)
+    return Map(dadda_map[bits])
